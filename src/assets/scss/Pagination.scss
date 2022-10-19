@@ -1,0 +1,47 @@
+.pagination {
+  position: absolute;
+  left: 108px;
+  bottom: 273px;
+  display: flex;
+  flex-direction: column;
+  &__buttons {
+    display: flex;
+    span{
+      cursor: pointer;
+      position: relative;
+      width: 49px;
+      height: 49px;
+      border-radius: 50%;
+      border: 1px solid rgba(66, 86, 122, 0.5);
+      margin:20px 10px;
+      background: transparent;
+      transition: 0.2s;
+    }
+    span:after {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      content: '';
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-left: 2px solid #42567A;
+      border-bottom: 2px solid #42567A;
+    }
+    span:first-child:after{
+      transform: rotate(45deg);
+    }
+    span:last-child:after{
+      transform: rotate(-135deg);
+    }
+    span:hover {
+      background: #ffffff;
+    }
+  }
+  &__pages {
+    font-size: 14px;
+    line-height: 18px;
+    padding-left: 10px;
+    color: #42567A;
+  }
+}

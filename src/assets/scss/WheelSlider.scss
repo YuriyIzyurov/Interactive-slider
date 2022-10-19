@@ -1,0 +1,317 @@
+.wheel_section {
+  height: 100vh;
+  width: 100%;
+}
+.half-slider {
+  position: relative
+}
+
+.rotate-slider {
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+
+.rotate-slider::-moz-selection {
+  background: transparent;
+  text-shadow: none
+}
+.rotate-slider::selection {
+  background: transparent;
+  text-shadow: none
+}
+.rotate-slider > span {
+  display: inline-block;
+  position: absolute;
+  top: 30%;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  background: aqua no-repeat;
+  opacity: .65;
+  background-size: cover;
+  z-index: 2
+}
+.rotate-slider > span:hover {
+  opacity: 1
+}
+.rotate-slider > span.prev {
+  left: -100px;
+}
+.rotate-slider > span.next {
+  right: -100px;
+  transform: rotate(180deg);
+}
+#rotate-carousel {
+  width: 530px !important;
+  height: 530px !important;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+  position: relative;
+  z-index: 1
+}
+#rotate-carousel > li {
+  position: absolute;
+  z-index: 8
+}
+#rotate-carousel > li > a {
+  display: inline-block;
+  background: aqua no-repeat scroll 0px 0px;
+  width: 20px;
+  background-size: cover;
+  cursor: pointer;
+  height: 20px;
+  transition: -webkit-transform 2s;
+  transition: transform 2s;
+}
+
+#rotate-carousel > li.active > a {
+  background-position: -162px 0px;
+  transform: scale(1.25);
+}
+
+#rotate-carousel > li.item1 {
+  top: 0;
+  left: 50%;
+  margin-left: -66px;
+  margin-top: -73px;
+}
+#rotate-carousel > li.item1 > a:before {
+  width: 60px;
+  height: 60px;
+  background: black;
+}
+#rotate-carousel > li.item2 {
+  top: -6px;
+  right: 173px;
+  -webkit-transform: rotate(60deg);
+  transform: rotate(60deg);
+}
+#rotate-carousel > li.item2 > a:before {
+  width: 60px;
+  height: 60px;
+  background: black;
+}
+#rotate-carousel > li.item3 {
+  top: 169px;
+  right: -1px;
+  -webkit-transform: rotate(120deg);
+  transform: rotate(120deg);
+}
+#rotate-carousel > li.item3 > a:before {
+  width: 60px;
+  height: 60px;
+  background: black;
+}
+#rotate-carousel > li.item4 {
+  top: 411px;
+  right: -65px;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+#rotate-carousel > li.item4 > a:before {
+  width: 60px;
+  height: 60px;
+  background: black;
+}
+#rotate-carousel > li.item5 {
+  top: 649px;
+  right: 0px;
+  -webkit-transform: rotate(240deg);
+  transform: rotate(240deg);
+}
+#rotate-carousel > li.item5 > a:before {
+  width: 60px;
+  height: 60px;
+  background: black;
+}
+#rotate-carousel > li.item6 {
+  bottom: 0;
+  left: 74%;
+  margin-left: -60px;
+  margin-bottom: -7px;
+  -webkit-transform: rotate(300deg);
+  transform: rotate(300deg)
+}
+#rotate-carousel > li.item6 > a:before {
+  width: 60px;
+  height: 60px;
+  background: black;
+}
+
+.animate-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 20px;
+  overflow: hidden;
+  z-index: 1
+}
+.animate-wrapper > div {
+  position: absolute;
+  width: 100%;
+  height: 100%
+}
+
+
+
+.animate-holder > #animation1 .animate1 {
+  background: aqua;
+  left: 30%;
+  top: -1000px;
+  width: 322px;
+  height: 269px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.animate-holder > #animation2 .animate1 {
+  background: aqua;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: -1000px;
+  width: 231px;
+  height: 245px;
+  left: 34%;
+}
+
+.animate-holder > #animation3 .animate1 {
+  background: aqua;
+  background-size: cover;
+  background-repeat: no-repeat;
+  left: 33%;
+  top: -1000px;
+  width: 260px;
+  height: 260px;
+  z-index: 5
+}
+
+.animate-holder > #animation4 .animate1 {
+  background: aqua;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 40px;
+  width: 227px;
+  height: 226px;
+  left: 35%;
+  opacity: 0;
+}
+
+.animate-holder > #animation5 .animate1 {
+  background: aqua;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 1000px;
+  width: 263px;
+  height: 277px;
+  left: 31%;
+  z-index: 1;
+}
+
+.animate-holder > #animation6 .animate1 {
+  background: aqua;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 0;
+  width: 291px;
+  height: 284px;
+  left: 1000px;
+}
+
+.animate-holder > #animation7 .animate1 {
+  background: aqua;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 0;
+  width: 214px;
+  height: 240px;
+  z-index: 1;
+}
+
+.animate-holder > #animation8 .animate1 {
+  background: aqua ;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: -1000px;
+  width: 152px;
+  height: 152px;
+  left: 41%;
+}
+
+.animate-holder > #animation9 .animate1 {
+  background: aqua;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: -1000px;
+  width: 315px;
+  height: 311px;
+  left: 227px;
+}
+
+.animate-holder > #animation10 .animate1 {
+  background: aqua;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 0;
+  width: 338px;
+  height: 283px;
+  left: 190px;
+  opacity: 0;
+}
+
+.animate-holder > #animation11 .animate1 {
+  background: aqua;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 0;
+  width: 338px;
+  height: 283px;
+  left: 190px;
+  opacity: 0;
+}
+
+.animate-holder > #animation12 .animate1 {
+  background: aqua;
+  background-size: cover;
+  background-repeat: no-repeat;
+  top: 0;
+  width: 338px;
+  height: 283px;
+  left: 203px;
+  opacity: 0;
+}
+
+.slider-more-holder {
+  text-align: center;
+  display: block;
+}
+.slider-more {
+  z-index: 5;
+  vertical-align: top;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 40px;
+  color: #222;
+  font: 700 25px/27px Roboto, serif;
+  text-transform: uppercase;
+  padding: 13px 55px 12px;
+  top: 220px;
+  opacity: .5;
+  box-shadow: 0 0 6px 1px rgba(20, 34, 60, .8);
+}
+.slider-more, .slider-more:after {
+  display: inline-block;
+  position: relative
+}
+.slider-more:after {
+  background: aqua no-repeat -105px -81px transparent;
+  content: '';
+  width: 8px;
+  height: 20px;
+  left: 10px;
+  transition: left .1s;
+}
+.slider-more:hover {
+  opacity: 1 !important
+}

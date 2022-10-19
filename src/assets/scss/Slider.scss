@@ -1,0 +1,72 @@
+.slider {
+  position: absolute;
+  bottom: 29px;
+  width: 1200px;
+  max-width: 100%;
+  max-height: 100vh;
+  min-height: 0;
+  min-width: 0;
+}
+.swiper-slide{
+  width: 320px !important;
+  margin-right: 80px ;
+}
+.swiper-wrapper{
+  max-height: 100%;
+  height: 100%;
+  display: flex;
+}
+.slide {
+  span {
+    color: #3877EE;
+    font-family: "Bebas Neue", serif;
+    font-size: 25px;
+    line-height: 120%;
+    text-transform: uppercase;
+  }
+  p {
+    font-size: 20px;
+    line-height: 30px;
+    color: #42567A;
+    margin-top: 10px;
+  }
+}
+.slider-button{
+  cursor: pointer;
+  display: flex;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin:20px 10px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 15px rgba(56, 119, 238, 0.1);
+  opacity: 1;
+  transition: 0.5s ease-in-out;
+  &:after {
+    position: absolute;
+    top: 16px;
+    left: 17px;
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-left: 2px solid #3877EE;
+    border-bottom: 2px solid #3877EE;;
+  }
+}
+.prev-button {
+  bottom: 83px;
+  left: -83px;
+  transform: rotate(45deg);
+}
+.next-button {
+  bottom: 83px;
+  right: -83px;
+  transform: rotate(-135deg);
+}
+.disabled_swiper_button{
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+}
