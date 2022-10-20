@@ -422,7 +422,7 @@ const App = () => {
             <span>{currentDate2}</span>
          </div>
          <Pagination setActivePage={handleActivePage} activePage={activePage} />
-         <Slider currentSlides={currentSlides} />
+         <Slider currentSlides={currentSlides} activePage={activePage} />
       </div>
    );
 };
