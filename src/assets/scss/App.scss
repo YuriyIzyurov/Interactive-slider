@@ -4,7 +4,7 @@ html, body, ul {
  width:100%;
  margin:0;
  padding:0;
- font-family: "PT Sans";
+  font-family: "PT Sans", sans-serif;
  font-style: normal;
 }
 #root {
@@ -165,4 +165,45 @@ ul {
    color:#ef5da8;
   }
  }
-
+@media only screen and (max-width: 1440px) {
+  body {
+    display: flex;
+  }
+}
+@media only screen and (max-width: 320px) {
+  #root {
+    width: 100%;
+  }
+  .background,
+  .carousel{
+    display: none;
+  }
+  .app {
+    display: block;
+    overflow: hidden;
+    background: #F4F5F9;
+    width: 100%;
+    height: 100%;
+  }
+  .title {
+    width: 123px;
+    top: 59px;
+    font-size: 20px;
+    border: none;
+    padding-left: 20px;
+  }
+  .dates {
+    width: 300px;
+    height: 73px;
+    left: 0;
+    padding-left: 20px;
+    top: 163px;
+    font-size: 56px;
+    line-height: 72px;
+    letter-spacing: -0.02em;
+  }
+  .dates span:first-child {
+    color:#3877EE;
+    margin-right: 27px;
+  }
+}

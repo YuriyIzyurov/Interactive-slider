@@ -31,7 +31,7 @@
     span:first-child:after{
       transform: rotate(45deg);
     }
-    span:last-child:after{
+    span:nth-child(2):after{
       transform: rotate(-135deg);
     }
     span:hover {
@@ -43,5 +43,49 @@
     line-height: 18px;
     padding-left: 10px;
     color: #42567A;
+  }
+  &__mobile {
+    display: none;
+    margin-left: 34px;
+    &-circle {
+      opacity: 0.4;
+      width: 6px;
+      height: 6px;
+      margin: 11px 5px;
+      border-radius: 50%;
+      background: #42567A;
+      transition: opacity 0.5s
+    }
+    .activePage {
+      opacity: 1;
+    }
+  }
+}
+@media only screen and (max-width: 320px) {
+  .pagination {
+    bottom: 10px;
+    left:20px;
+  }
+  .pagination__pages {
+    padding-left: 4px;
+  }
+  .pagination__mobile {
+    display: flex;
+  }
+  .pagination__buttons span {
+    width: 23px;
+    height: 23px;
+  }
+  .pagination__buttons span {
+    margin: 10px 4px;
+  }
+  .pagination__buttons span:after{
+    top:8px;
+    left:9px;
+    width: 4px;
+    height: 4px;
+  }
+  .pagination__buttons span:nth-child(2):after {
+    left: 8px;
   }
 }

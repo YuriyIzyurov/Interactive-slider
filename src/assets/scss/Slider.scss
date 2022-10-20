@@ -6,9 +6,19 @@
   max-height: 100vh;
   min-height: 0;
   min-width: 0;
+  &-title {
+    font-weight: 700;
+    color: #42567A;
+    display: none;
+    height: 20px;
+    position: absolute;
+    top: -58px;
+    width: 100px;
+  }
 }
 .swiper-slide{
   width: 320px !important;
+  height: 200px;
   margin-right: 80px ;
 }
 .swiper-wrapper{
@@ -69,4 +79,37 @@
   visibility: hidden;
   opacity: 0;
   transition: 0.2s ease-in-out;
+}
+@media only screen and (max-width: 320px) {
+  .slider {
+    min-width: 380px;
+    bottom: 56px;
+    margin-left: 20px;
+  }
+  .slider-title {
+    display: flex;
+  }
+  .slider:before {
+    content: '';
+    position: absolute;
+    top:-20px;
+    left:0;
+    width: 74%;
+    height: 1px;
+    background: #C7CDD9;
+  }
+  .slider-button {
+    display: none;
+  }
+  .swiper-slide{
+    width: 166px !important;
+    margin-right: 25px;
+  }
+  .slide span {
+    font-size: 16px;
+  }
+  .slide p {
+    font-size: 14px;
+    line-height: 145%;
+  }
 }
