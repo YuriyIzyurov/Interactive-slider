@@ -173,6 +173,7 @@ ul {
 @media only screen and (max-width: 320px) {
   #root {
     width: 100%;
+    background: #f4f5f9;
   }
   .background,
   .carousel{
@@ -183,7 +184,7 @@ ul {
     overflow: hidden;
     background: #F4F5F9;
     width: 100%;
-    height: 100%;
+    height: 568px;
   }
   .title {
     width: 123px;

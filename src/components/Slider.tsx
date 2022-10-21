@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import 'swiper/css/bundle';
 import '../assets/scss/Slider.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
-//import Swiper from 'swiper';
 import { Navigation, A11y } from 'swiper';
-import { SlidersType } from '../components/App';
+import { SlidersType } from '../utility/constants';
+
 
 export const Slider: React.FC<{
    currentSlides: SlidersType;

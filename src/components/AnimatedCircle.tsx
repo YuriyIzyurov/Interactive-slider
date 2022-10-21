@@ -1,140 +1,169 @@
-import React, { Dispatch, useEffect, useRef, useState } from "react";
-import TweenMax from "gsap";
-import TweenLite, { Power3 } from "gsap";
-import { clickRotator } from "../utility/functions";
-import { itemPositionsType, Rotations } from "../utility/constants";
+import React, { Dispatch, useEffect, useRef, useState } from 'react';
+import TweenMax from 'gsap';
+import TweenLite, { Power3 } from 'gsap';
+import { calculatePosition, clickRotator } from '../utility/functions';
+import {
+   item1Positions,
+   item2Positions,
+   item3Positions,
+   item4Positions,
+   item5Positions,
+   item6Positions,
+   itemPositionsType,
+   Rotations,
+} from '../utility/constants';
+import { ActionType, ItemState } from '../utility/reducer';
 
 type PropsType = {
-  item1Positions: itemPositionsType;
-  digit: number;
-  isItemActive: boolean;
-  setItemActive: Dispatch<boolean>;
-  wheelPosition: number;
-  setWheelPosition: Dispatch<number>;
-  wheel: React.MutableRefObject<HTMLUListElement>;
-  setDigitRotation: Dispatch<Rotations>;
-  digitRotation: Rotations | null;
-  deactivePreviousItem: (number) => void;
-  description: string;
+   digit: number;
+   dispatch: Dispatch<ActionType>;
+   wheel: React.MutableRefObject<HTMLUListElement>;
+   deactivePreviousItem: (number) => void;
+   state: ItemState;
 };
 const AnimatedCircle: React.FC<PropsType> = ({
-  item1Positions,
-  digit,
-  isItemActive,
-  setItemActive,
-  wheelPosition,
-  setWheelPosition,
-  wheel,
-  setDigitRotation,
-  digitRotation,
-  deactivePreviousItem,
-  description,
+   digit,
+   wheel,
+   deactivePreviousItem,
+   state,
+   dispatch,
 }) => {
-  const item1 = useRef<HTMLLIElement>(null);
-  const item1Digit = useRef<HTMLSpanElement>(null);
+   const item1 = useRef<HTMLLIElement>(null);
+   const item1Digit = useRef<HTMLSpanElement>(null);
 
-  const [isItemHovered, setItemHovered] = useState<boolean>(false);
+   const [isItemHovered, setItemHovered] = useState<boolean>(false);
 
-  let position;
+   let position;
+   let isItemActive;
+   let itemPositions;
+   let description;
 
-  switch (digit) {
-    case 1:
-    case 2:
-    case 3:
-      position = "topRight";
-      break;
-    case 4:
-    case 5:
-    case 6:
-      position = "topLeft";
-      break;
-  }
+   switch (digit) {
+      case 1:
+         isItemActive = state.isItem1Active;
+         itemPositions = item1Positions;
+         description = 'Космос';
+         break;
+      case 2:
+         isItemActive = state.isItem2Active;
+         itemPositions = item2Positions;
+         description = 'Кино';
+         break;
+      case 3:
+         isItemActive = state.isItem3Active;
+         itemPositions = item3Positions;
+         description = 'Литература';
+         break;
+      case 4:
+         isItemActive = state.isItem4Active;
+         itemPositions = item4Positions;
+         description = 'Театр';
+         break;
+      case 5:
+         isItemActive = state.isItem5Active;
+         itemPositions = item5Positions;
+         description = 'Игры';
+         break;
+      case 6:
+         isItemActive = state.isItem6Active;
+         itemPositions = item6Positions;
+         description = 'Наука';
+         break;
+   }
 
-  const rotateDigit = (digitRotation) => {
-    if (digitRotation || digitRotation === 0) {
-      TweenLite.to(item1Digit.current, 1, {
-        rotation: digitRotation,
+   switch (digit) {
+      case 1:
+      case 2:
+      case 3:
+         position = 'topRight';
+         break;
+      case 4:
+      case 5:
+      case 6:
+         position = 'topLeft';
+         break;
+   }
+
+   const rotateDigit = (digitRotation) => {
+      if (digitRotation || digitRotation === 0) {
+         TweenLite.to(item1Digit.current, 1, {
+            rotation: digitRotation,
+         });
+      }
+   };
+
+   useEffect(() => {
+      rotateDigit(state.digitRotation);
+   }, [state.digitRotation]);
+
+   useEffect(() => {
+      if (!isItemActive) hoverHandler(false);
+      if (isItemActive) hoverHandler(true);
+   }, [isItemActive]);
+
+   const hoverHandler = (value) => {
+      TweenMax.to(item1.current, 0.3, {
+         width: value ? 56 : 6,
+         height: value ? 56 : 6,
+         top: calculatePosition(value, 'y', itemPositions),
+         right:
+            position === 'topRight' &&
+            calculatePosition(value, 'x', itemPositions),
+         left:
+            position === 'topLeft' &&
+            calculatePosition(value, 'x', itemPositions),
+         background: value ? '#E5E5E5' : '#42567A',
+         border: value ? '1px solid rgba(48, 62, 88, 0.5)' : 'none',
+         ease: Power3.easeOut,
       });
-    }
-  };
+      setItemHovered(value);
+   };
 
-  useEffect(() => {
-    rotateDigit(digitRotation);
-  }, [digitRotation]);
+   const clickHandler = () => {
+      if (state.wheelPosition !== digit) {
+         dispatch({ type: `setItem${digit}Active`, payload: true });
+         deactivePreviousItem(state.wheelPosition);
+         dispatch({ type: 'setWheelPosition', payload: digit });
+         clickRotator(state.wheelPosition, digit, wheel.current, dispatch);
+      }
+   };
 
-  useEffect(() => {
-    if (!isItemActive) hoverHandler(false);
-    if (isItemActive) hoverHandler(true);
-  }, [isItemActive]);
+   const mouseEnterHandler = () => {
+      hoverHandler(true);
+   };
 
-  const calculatePosition = (value, axis) => {
-    let initialPosition;
-    let resultPosition;
-    if (axis === "y") {
-      initialPosition = item1Positions.y[1];
-      resultPosition = item1Positions.y[0];
-    } else {
-      initialPosition = item1Positions.x[1];
-      resultPosition = item1Positions.x[0];
-    }
-    return value ? resultPosition : initialPosition;
-  };
+   const mouseLeaveHandler = () => {
+      if (!isItemActive) hoverHandler(false);
+   };
 
-  const hoverHandler = (value) => {
-    TweenMax.to(item1.current, 0.3, {
-      width: value ? 56 : 6,
-      height: value ? 56 : 6,
-      top: calculatePosition(value, "y"),
-      right: position === "topRight" && calculatePosition(value, "x"),
-      left: position === "topLeft" && calculatePosition(value, "x"),
-      background: value ? "#E5E5E5" : "#42567A",
-      border: value ? "1px solid rgba(48, 62, 88, 0.5)" : "none",
-      ease: Power3.easeOut,
-    });
-    setItemHovered(value);
-  };
+   return (
+      <>
+         <li
+            className={`carousel-item carousel-item${digit}`}
+            onMouseEnter={mouseEnterHandler}
+            onMouseLeave={mouseLeaveHandler}
+            onClick={clickHandler}
+            ref={item1}
+         ></li>
 
-  const clickHandler = () => {
-    if (wheelPosition !== digit) {
-      setItemActive(true);
-      deactivePreviousItem(wheelPosition);
-      setWheelPosition(digit);
-      clickRotator(wheelPosition, digit, wheel.current, setDigitRotation);
-    }
-  };
-
-  const mouseEnterHandler = () => {
-    hoverHandler(true);
-  };
-
-  const mouseLeaveHandler = () => {
-    if (!isItemActive) hoverHandler(false);
-  };
-
-  return (
-    <>
-      <li
-        className={`carousel-item carousel-item${digit}`}
-        onMouseEnter={mouseEnterHandler}
-        onMouseLeave={mouseLeaveHandler}
-        onClick={clickHandler}
-        ref={item1}
-      ></li>
-
-      <span
-        className="digit"
-        style={
-          position === "topRight"
-            ? { top: item1Positions.y[0], right: item1Positions.x[0] }
-            : { top: item1Positions.y[0], left: item1Positions.x[0] + 1 }
-        }
-        ref={item1Digit}
-      >
-        <span className={isItemHovered ? "" : "digit-invisible"}>{digit}</span>
-        <span className={`description description${digit}`}>{description}</span>
-      </span>
-    </>
-  );
+         <span
+            className="digit"
+            style={
+               position === 'topRight'
+                  ? { top: itemPositions.y[0], right: itemPositions.x[0] }
+                  : { top: itemPositions.y[0], left: itemPositions.x[0] + 1 }
+            }
+            ref={item1Digit}
+         >
+            <span className={isItemHovered ? '' : 'digit-invisible'}>
+               {digit}
+            </span>
+            <span className={`description description${digit}`}>
+               {description}
+            </span>
+         </span>
+      </>
+   );
 };
 
 export default AnimatedCircle;

@@ -20,6 +20,10 @@ export type itemPositionsType = {
    y: number[];
    x: number[];
 };
+export type SlidersType = {
+   title: string;
+   slides: string[][];
+};
 export const item1Positions: itemPositionsType = {
    y: [6, 31],
    x: [103, 128],
