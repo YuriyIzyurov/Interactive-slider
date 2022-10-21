@@ -84,16 +84,16 @@
   .slider {
     min-width: 380px;
     bottom: 56px;
-    margin-left: 20px;
   }
   .slider-title {
     display: flex;
+    margin-left: 20px;
   }
   .slider:before {
     content: '';
     position: absolute;
     top:-20px;
-    left:0;
+    left:20px;
     width: 74%;
     height: 1px;
     background: #C7CDD9;
@@ -103,7 +103,8 @@
   }
   .swiper-slide{
     width: 166px !important;
-    margin-right: 25px;
+    margin-left: 20px;
+    margin-right: 5px;
   }
   .slide span {
     font-size: 16px;
