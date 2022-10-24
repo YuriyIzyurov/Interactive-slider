@@ -1,6 +1,6 @@
 # React Interactive History dates slider
 ## Deployed app
-https://interactive-sliderrrrr-i00pnv2kw-yuriyizyurov.vercel.app/
+https://interactive-sliderrrrr-6pvxbbyau-yuriyizyurov.vercel.app/
 ## Installation
 1. Clone/download repo
 2. `yarn install` (or `npm install` for npm)
