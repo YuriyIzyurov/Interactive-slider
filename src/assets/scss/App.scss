@@ -1,4 +1,7 @@
-
+* {
+  margin: 0;
+  padding: 0;
+}
 html, body, ul {
  height:100%;
  width:100%;
@@ -252,29 +255,3 @@ ul {
     top: 162px;
   }
 }
-/*
-@media only screen and (min-height: 790px) and ( max-width: 430px) and ( min-width: 321px ){
-  .app {
-    min-height: 730px;
-  }
-  .dates {
-    top: 228px;
-  }
-  .title {
-    top: 24px;
-  }
-  .carousel {
-    top: 0;
-  }
-  .background-mobile {
-    top: 104px;
-  }
-}
-@media only screen and (max-height: 550px) and ( max-width: 320px) {
-    .dates {
-      top: 112px;
-    }
-    .title {
-      top: 24px;
-    }
-}*/

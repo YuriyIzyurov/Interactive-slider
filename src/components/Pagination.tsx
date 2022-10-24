@@ -22,7 +22,7 @@ const Pagination: React.FC<PropsType> = ({
    const prevPage = activePage === 1 ? 6 : activePage - 1;
 
    const handleActivePage = (currentPage: number, desirablePage: number) => {
-      if (isWheelRotatable) {
+      if (isWheelRotatable && currentPage != desirablePage) {
          const slides = chooseSlides(desirablePage);
          dispatch({ type: `setItem${currentPage}Active`, payload: false });
          dispatch({ type: `setItem${desirablePage}Active`, payload: true });
