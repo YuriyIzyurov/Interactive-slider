@@ -1,4 +1,4 @@
-import { Rotations } from './constants';
+import { Cosmos, CosmosSlides, Rotations, slideInfoType } from './constants';
 
 export type ItemState = {
    isItem1Active: boolean;
@@ -9,6 +9,11 @@ export type ItemState = {
    isItem6Active: boolean;
    wheelPosition: number;
    digitRotation: Rotations | null;
+   isWheelRotatable: boolean;
+   currentDate1: number;
+   currentDate2: number;
+   activePage: number;
+   currentSlides: slideInfoType;
 };
 export type ActionType = {
    type: string;
@@ -33,6 +38,16 @@ export const reducer = (state: ItemState, action: ActionType) => {
          return { ...state, wheelPosition: action.payload };
       case 'setDigitRotation':
          return { ...state, digitRotation: action.payload };
+      case 'setWheelRotatable':
+         return { ...state, isWheelRotatable: action.payload };
+      case 'setCurrentDate1':
+         return { ...state, currentDate1: action.payload };
+      case 'setCurrentDate2':
+         return { ...state, currentDate2: action.payload };
+      case 'setActivePage':
+         return { ...state, activePage: action.payload };
+      case 'setSlides':
+         return { ...state, currentSlides: action.payload };
       default:
          return state;
    }
@@ -46,4 +61,14 @@ export const initialState: ItemState = {
    isItem6Active: false,
    wheelPosition: 1,
    digitRotation: null,
+   isWheelRotatable: true,
+   currentDate1: Cosmos[0],
+   currentDate2: Cosmos[1],
+   activePage: 1,
+   currentSlides: {
+      activePage: 1,
+      title: 'Космос',
+      dates: Cosmos,
+      slides: CosmosSlides,
+   },
 };

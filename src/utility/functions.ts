@@ -1,47 +1,24 @@
 import TweenLite from 'gsap';
 import { Dispatch } from 'react';
-import { Rotations } from '../utility/constants';
 import gsap from 'gsap';
 import { ActionType } from '../utility/reducer';
+import {
+   Cosmos,
+   CosmosSlides,
+   Films,
+   FilmSlides,
+   Games,
+   GamesSliders,
+   Literature,
+   LiteratureSlides,
+   Rotations,
+   Science,
+   ScienceSliders,
+   slideInfoType,
+   Theatre,
+   TheatreSlides,
+} from '../utility/constants';
 
-export const chooseRotation = (number, direction) => {
-   switch (number) {
-      case 0:
-         return direction === 'negative'
-            ? Rotations.negative0
-            : Rotations.positive0;
-      case 1:
-         return direction === 'negative'
-            ? Rotations.negative1
-            : Rotations.positive1;
-      case 2:
-         return direction === 'negative'
-            ? Rotations.negative2
-            : Rotations.positive2;
-      case 3:
-         return direction === 'negative'
-            ? Rotations.negative3
-            : Rotations.positive3;
-      case 4:
-         return direction === 'negative'
-            ? Rotations.negative4
-            : Rotations.positive4;
-      case 5:
-         return direction === 'negative'
-            ? Rotations.negative5
-            : Rotations.positive5;
-      case 6:
-         return direction === 'negative'
-            ? Rotations.negative6
-            : Rotations.positive6;
-      case 7:
-         return direction === 'negative'
-            ? Rotations.negative7
-            : Rotations.positive7;
-      default:
-         return;
-   }
-};
 export const CalculateGsapEffect = (width) => {
    if (width) {
       gsap
@@ -56,168 +33,129 @@ export const CalculateGsapEffect = (width) => {
          .to('.slider', { opacity: 1, duration: 0.5 });
    }
 };
-export const clickRotator = (
+export const chooseSlides = (number: number): slideInfoType => {
+   switch (number) {
+      case 1:
+         return {
+            activePage: 1,
+            title: 'Космос',
+            dates: Cosmos,
+            slides: CosmosSlides,
+         };
+      case 2:
+         return {
+            activePage: 2,
+            title: 'Кино',
+            dates: Films,
+            slides: FilmSlides,
+         };
+      case 3:
+         return {
+            activePage: 3,
+            title: 'Литература',
+            dates: Literature,
+            slides: LiteratureSlides,
+         };
+      case 4:
+         return {
+            activePage: 4,
+            title: 'Театр',
+            dates: Theatre,
+            slides: TheatreSlides,
+         };
+      case 5:
+         return {
+            activePage: 5,
+            title: 'Игры',
+            dates: Games,
+            slides: GamesSliders,
+         };
+      case 6:
+         return {
+            activePage: 6,
+            title: 'Наука',
+            dates: Science,
+            slides: ScienceSliders,
+         };
+   }
+};
+export const setPageAndDates = (
+   pageNumber: number,
+   currentDate1: number,
+   currentDate2: number,
+   dispatch: Dispatch<ActionType>,
+) => {
+   const slides = chooseSlides(pageNumber);
+   changeDates(slides.dates[0], currentDate1, dispatch, 'setCurrentDate1');
+   changeDates(slides.dates[1], currentDate2, dispatch, 'setCurrentDate2');
+   dispatch({ type: 'setActivePage', payload: slides.activePage });
+   gsap.to(`.description${slides.activePage}`, {
+      opacity: 1,
+      duration: 0.6,
+      delay: 0.4,
+   });
+};
+export const deactivatePreviousItem = (
+   itemNumber: number,
+   callback: Dispatch<ActionType>,
+) => {
+   gsap.to(`.description${itemNumber}`, { opacity: 0, duration: 0.2 });
+   callback({ type: `setItem${itemNumber}Active`, payload: false });
+};
+export const gsapRotator = (
    wheelPosition: number,
    digit: number,
    item: HTMLUListElement,
    setDigitRotation: Dispatch<ActionType>,
 ) => {
    if (digit - wheelPosition === 1 || digit - wheelPosition === -5) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition, 'negative'),
+      gsap.to(item, {
+         rotation: Rotations.negative1,
       });
       setDigitRotation({
          type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition, 'positive'),
+         payload: Rotations.positive1,
       });
       return;
    }
-
    if (digit - wheelPosition === 2 || digit - wheelPosition === -4) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition + 1, 'negative'),
+      gsap.to(item, {
+         rotation: Rotations.negative2,
       });
       setDigitRotation({
          type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition + 1, 'positive'),
+         payload: Rotations.positive2,
+      });
+      return;
+   }
+   if (Math.abs(digit - wheelPosition) === 3) {
+      gsap.to(item, {
+         rotation: Rotations.positive3,
+      });
+      setDigitRotation({
+         type: 'setDigitRotation',
+         payload: Rotations.negative3,
+      });
+      return;
+   }
+   if (digit - wheelPosition === 4 || digit - wheelPosition === -2) {
+      TweenLite.to(item, {
+         rotation: Rotations.positive2,
+      });
+      setDigitRotation({
+         type: 'setDigitRotation',
+         payload: Rotations.negative2,
       });
       return;
    }
 
-   if (digit - wheelPosition === 3 && wheelPosition === 1) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition + 2, 'positive'),
+   if (digit - wheelPosition === 5 || digit - wheelPosition === -1) {
+      TweenLite.to(item, {
+         rotation: Rotations.positive1,
       });
       setDigitRotation({
          type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition + 2, 'negative'),
-      });
-      return;
-   }
-
-   if (digit - wheelPosition === 3 && wheelPosition === 2) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition, 'positive'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition, 'negative'),
-      });
-      return;
-   }
-
-   if (digit - wheelPosition === 3 && wheelPosition === 3) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition - 2, 'positive'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition - 2, 'negative'),
-      });
-      return;
-   }
-
-   if (digit - wheelPosition === -3 && wheelPosition === 4) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition + 2, 'positive'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition + 2, 'negative'),
-      });
-      return;
-   }
-
-   if (
-      digit - wheelPosition === -3 &&
-      (wheelPosition === 5 || wheelPosition === 6)
-   ) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition - 4, 'negative'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition - 4, 'positive'),
-      });
-      return;
-   }
-
-   if (digit - wheelPosition === 4 && wheelPosition === 1) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition + 1, 'positive'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition + 1, 'negative'),
-      });
-      return;
-   }
-
-   if (digit - wheelPosition === 4 && wheelPosition === 2) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition - 1, 'positive'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition - 1, 'negative'),
-      });
-      return;
-   }
-
-   if (digit - wheelPosition === -2 && wheelPosition === 3) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition - 3, 'positive'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition - 3, 'negative'),
-      });
-      return;
-   }
-
-   if (digit - wheelPosition === -2 && wheelPosition === 4) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition - 3, 'negative'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition - 3, 'positive'),
-      });
-      return;
-   }
-
-   if (
-      digit - wheelPosition === -2 &&
-      (wheelPosition === 5 || wheelPosition === 6)
-   ) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition - 3, 'negative'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition - 3, 'positive'),
-      });
-      return;
-   }
-
-   if (digit - wheelPosition === 5 && wheelPosition === 1) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition, 'positive'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition, 'negative'),
-      });
-      return;
-   }
-
-   if (digit - wheelPosition === -1) {
-      TweenLite.to(item, 1, {
-         rotation: chooseRotation(wheelPosition - 2, 'negative'),
-      });
-      setDigitRotation({
-         type: 'setDigitRotation',
-         payload: chooseRotation(wheelPosition - 2, 'positive'),
+         payload: Rotations.negative1,
       });
       return;
    }
@@ -225,7 +163,8 @@ export const clickRotator = (
 export const changeDates = (
    desirableDate: number,
    currentDate: number,
-   callback: Dispatch<number>,
+   callback: Dispatch<ActionType>,
+   type: string,
 ) => {
    const time = 500;
    let number = currentDate;
@@ -240,7 +179,7 @@ export const changeDates = (
       if (number === desirableDate) {
          clearInterval(interval);
       }
-      callback(number);
+      callback({ type: type, payload: number });
    }, t);
 };
 

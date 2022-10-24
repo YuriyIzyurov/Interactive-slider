@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, A11y } from 'swiper';
 import { SlidersType } from '../utility/constants';
 
-
 export const Slider: React.FC<{
    currentSlides: SlidersType;
    activePage: number;
@@ -35,7 +34,7 @@ export const Slider: React.FC<{
          <div className="slider-title">{currentSlides.title}</div>
          <Swiper
             modules={[Navigation, A11y]}
-            slidesPerView={window.innerWidth > 320 ? 3 : 2}
+            slidesPerView={window.innerWidth > 431 ? 3 : 2}
             navigation={{
                prevEl,
                nextEl,

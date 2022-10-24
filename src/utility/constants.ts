@@ -1,21 +1,15 @@
 export const enum Rotations {
-   negative0 = 0,
-   negative1 = -60,
-   negative2 = -120,
-   negative3 = -180,
-   negative4 = -240,
-   negative5 = -300,
-   negative6 = -360,
-   negative7 = -420,
-   positive0 = 0,
-   positive1 = 60,
-   positive2 = 120,
-   positive3 = 180,
-   positive4 = 240,
-   positive5 = 300,
-   positive6 = 360,
-   positive7 = 420,
+   negative1 = '-=60',
+   negative2 = '-=120',
+   negative3 = '-=180',
+   positive1 = '+=60',
+   positive2 = '+=120',
+   positive3 = '+=180',
 }
+export type slideInfoType = {
+   dates: number[];
+   activePage: number;
+} & SlidersType;
 export type itemPositionsType = {
    y: number[];
    x: number[];

@@ -1,7 +1,12 @@
 import React, { Dispatch, useEffect, useRef, useState } from 'react';
 import TweenMax from 'gsap';
-import TweenLite, { Power3 } from 'gsap';
-import { calculatePosition, clickRotator } from '../utility/functions';
+import { Power3, gsap } from 'gsap';
+import {
+   calculatePosition,
+   chooseSlides,
+   deactivatePreviousItem,
+   gsapRotator,
+} from '../utility/functions';
 import {
    item1Positions,
    item2Positions,
@@ -9,22 +14,18 @@ import {
    item4Positions,
    item5Positions,
    item6Positions,
-   itemPositionsType,
-   Rotations,
 } from '../utility/constants';
 import { ActionType, ItemState } from '../utility/reducer';
 
 type PropsType = {
    digit: number;
    dispatch: Dispatch<ActionType>;
-   wheel: React.MutableRefObject<HTMLUListElement>;
-   deactivePreviousItem: (number) => void;
+   wheel: HTMLUListElement;
    state: ItemState;
 };
 const AnimatedCircle: React.FC<PropsType> = ({
    digit,
    wheel,
-   deactivePreviousItem,
    state,
    dispatch,
 }) => {
@@ -43,57 +44,50 @@ const AnimatedCircle: React.FC<PropsType> = ({
          isItemActive = state.isItem1Active;
          itemPositions = item1Positions;
          description = 'Космос';
+         position = 'topRight';
          break;
       case 2:
          isItemActive = state.isItem2Active;
          itemPositions = item2Positions;
          description = 'Кино';
+         position = 'topRight';
          break;
       case 3:
          isItemActive = state.isItem3Active;
          itemPositions = item3Positions;
          description = 'Литература';
+         position = 'topRight';
          break;
       case 4:
          isItemActive = state.isItem4Active;
          itemPositions = item4Positions;
          description = 'Театр';
+         position = 'topLeft';
          break;
       case 5:
          isItemActive = state.isItem5Active;
          itemPositions = item5Positions;
          description = 'Игры';
+         position = 'topLeft';
          break;
       case 6:
          isItemActive = state.isItem6Active;
          itemPositions = item6Positions;
          description = 'Наука';
-         break;
-   }
-
-   switch (digit) {
-      case 1:
-      case 2:
-      case 3:
-         position = 'topRight';
-         break;
-      case 4:
-      case 5:
-      case 6:
          position = 'topLeft';
          break;
    }
 
-   const rotateDigit = (digitRotation) => {
-      if (digitRotation || digitRotation === 0) {
-         TweenLite.to(item1Digit.current, 1, {
-            rotation: digitRotation,
+   useEffect(() => {
+      if (state.digitRotation) {
+         gsap.to(item1Digit.current, {
+            rotation: state.digitRotation,
+         });
+         dispatch({
+            type: 'setDigitRotation',
+            payload: null,
          });
       }
-   };
-
-   useEffect(() => {
-      rotateDigit(state.digitRotation);
    }, [state.digitRotation]);
 
    useEffect(() => {
@@ -120,11 +114,19 @@ const AnimatedCircle: React.FC<PropsType> = ({
    };
 
    const clickHandler = () => {
-      if (state.wheelPosition !== digit) {
+      if (state.wheelPosition !== digit && state.isWheelRotatable) {
+         const slides = chooseSlides(digit);
          dispatch({ type: `setItem${digit}Active`, payload: true });
-         deactivePreviousItem(state.wheelPosition);
+         setTimeout(() => {
+            dispatch({ type: 'setSlides', payload: slides });
+         }, 200);
+         deactivatePreviousItem(state.wheelPosition, dispatch);
          dispatch({ type: 'setWheelPosition', payload: digit });
-         clickRotator(state.wheelPosition, digit, wheel.current, dispatch);
+         dispatch({ type: 'setWheelRotatable', payload: false });
+         setTimeout(() => {
+            dispatch({ type: 'setWheelRotatable', payload: true });
+         }, 800);
+         gsapRotator(state.wheelPosition, digit, wheel, dispatch);
       }
    };
 

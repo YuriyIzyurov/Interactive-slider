@@ -32,10 +32,20 @@
       transform: rotate(45deg);
     }
     span:nth-child(2):after{
+      left: 19px;
       transform: rotate(-135deg);
     }
     span:hover {
       background: #ffffff;
+    }
+    &-inactive {
+      opacity: 0.5;
+      span {
+        cursor: initial;
+      }
+      span:hover {
+        background: transparent;
+      }
     }
   }
   &__pages {
@@ -61,16 +71,45 @@
     }
   }
 }
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 430px) {
   .pagination {
-    bottom: 10px;
-    left:20px;
+    bottom: 60px;
+    left:45px;
   }
   .pagination__pages {
     padding-left: 4px;
   }
   .pagination__mobile {
     display: flex;
+    margin-left: 40px;
+  }
+  .pagination__buttons span {
+    width: 35px;
+    height: 35px;
+  }
+  .pagination__buttons span {
+    margin: 10px 4px;
+  }
+  .pagination__buttons span:after{
+    top:13px;
+    left:15px;
+    width: 7px;
+    height: 7px;
+  }
+  .pagination__buttons span:nth-child(2):after {
+    left: 11px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .pagination {
+    bottom: 20px;
+    left:17px;
+  }
+  .pagination__pages {
+    padding-left: 4px;
+  }
+  .pagination__mobile {
+    margin-left: 34px;
   }
   .pagination__buttons span {
     width: 23px;
